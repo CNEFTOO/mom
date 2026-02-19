@@ -57,7 +57,7 @@ class MomApp:
 
         return app(environ, start_response)
 
-    def run(self, host: str = "127.0.0.1", port: int = 8000) -> None:
+    def run(self, host: str = "127.0.0.1", port: int = 9527) -> None:
         print(f"Running on http://{host}:{port}")
         server = make_server(host, port, self)
         server.serve_forever()

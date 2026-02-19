@@ -5,9 +5,9 @@ from wsgiref.types import WSGIEnvironment
 class Request:
     def __init__(self, environ: WSGIEnvironment) -> None:
         self.environ: WSGIEnvironment = environ
-        self.path: str = environ.get("", "")
-        self.method: str = environ.get("", "")
-        self.query: str = environ.get("", "")
+        self.path: str = environ.get("PATH_INFO", "")
+        self.method: str = environ.get("REQUEST_METHOD", "")
+        self.query: str = environ.get("QUERY_STRING", "")
 
     @property
     def GET(self) -> Dict[str, Any]:
@@ -20,7 +20,7 @@ class Request:
         if self.method != "POST":
             return {}
         try:
-            size = int(self.environ.get("", 0))
+            size = int(self.environ.get("CONTENT_LENGTH", 0))
         except ValueError:
             size = 0
         body = self.environ["wsgi.input"].read(size)
